@@ -7,34 +7,20 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap mMap;
     boolean mapReady = false;
-    MarkerOptions pakTotok, pecel, kikil;
     LatLng jombang = new LatLng(-7.5622506, 112.2337198);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        pakTotok = new MarkerOptions()
-                .position(new LatLng(-7.551187, 112.224978))
-                .title("Warung Pak Totok")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
-        pecel = new MarkerOptions()
-                .position(new LatLng(-7.556107, 112.232671))
-                .title("Pecel Enak")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
-        kikil = new MarkerOptions()
-                .position(new LatLng(-7.575390, 112.236555))
-                .title("Kikil Enak")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
@@ -43,16 +29,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mapReady = true;
         mMap = googleMap;
-        mMap.addMarker(pakTotok);
-        mMap.addMarker(pecel);
-        mMap.addMarker(kikil);
+        mMap.addPolyline(new PolylineOptions().geodesic(true).add(new LatLng(-7.551187, 112.224978))
+                .add(new LatLng(-7.556107, 112.232671))
+                .add(new LatLng(-7.575390, 112.236555))
+                .add(new LatLng(-7.551187, 112.224978)));
         changePosition(jombang);
     }
 
     void changePosition(LatLng target) {
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(target)
-                .zoom(13)
+                .zoom(12)
                 .bearing(90)
                 .build();
 
