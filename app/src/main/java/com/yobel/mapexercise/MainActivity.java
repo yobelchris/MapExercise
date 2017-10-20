@@ -1,5 +1,6 @@
 package com.yobel.mapexercise;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mapReady = true;
         mMap = googleMap;
-        mMap.addCircle(new CircleOptions().center(new LatLng(-7.557808, 112.238784)).radius(30));
+        mMap.addCircle(new CircleOptions().center(new LatLng(-7.557808, 112.238784)).radius(30).strokeColor(Color.GREEN).fillColor(Color.argb(64, 0, 255, 0)));
         changePosition(jombang);
     }
 
